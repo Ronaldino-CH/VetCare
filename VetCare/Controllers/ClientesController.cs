@@ -70,23 +70,7 @@ namespace VetCare.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// Desactiva un cliente.
-        /// </summary>
-        //[HttpPatch("{id:int}/disable")]
-        //public async Task<IActionResult> Disable(int id)
-        //{
-        //    var result = await _clienteService.DisabledAsync(id);
-
-        //    if (!result.Success)
-        //        return BadRequest(result);
-
-        //    return Ok(result);
-        //}
-
-        /// <summary>
-        /// Lista solo clientes activos.
-        /// </summary>
+        
         [HttpGet("activos")]
         public async Task<IActionResult> GetActivos()
         {
