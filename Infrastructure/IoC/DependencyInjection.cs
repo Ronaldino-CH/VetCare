@@ -1,7 +1,10 @@
 ﻿using Application.Clientes.Interfaces;
 using Application.Clientes.Services;
+using Application.Mascotas.Interfaces;
+using Application.Mascotas.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Clientes.Repositories;
+using Infrastructure.Data.Mascotas.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,12 +46,14 @@ namespace Infrastructure.IoC
 
             // Scoped = se crea una instancia por cada request HTTP
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IMascotaRepository, MascotaRepository>();
 
             // =========================
             // 🔹 REGISTRO DE SERVICIOS
             // =========================
 
             services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IMascotaService, MascotaService>();
 
             // Aquí luego irán:
             // services.AddScoped<IUsuarioRepository, UsuarioRepository>();

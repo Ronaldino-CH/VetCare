@@ -17,6 +17,7 @@ namespace Infrastructure.Data
         //agregar los demás
 
         public DbSet<Cliente> Clientes => Set<Cliente>();
+        public DbSet<Mascota> Mascotas => Set<Mascota>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
