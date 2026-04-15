@@ -18,6 +18,7 @@ namespace Infrastructure.Data
 
         public DbSet<Cliente> Clientes => Set<Cliente>();
         public DbSet<Mascota> Mascotas => Set<Mascota>();
+        public DbSet<Cita> Citas => Set<Cita>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
