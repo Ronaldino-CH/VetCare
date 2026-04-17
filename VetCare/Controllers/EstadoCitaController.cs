@@ -1,5 +1,5 @@
-﻿using Application.Citas.Dtos;
-using Application.Citas.Interfaces;
+﻿using Application.EstadoCitas.Dtos;
+using Application.EstadoCitas.Interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -10,46 +10,47 @@ namespace VetCare.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "1,2,3")]
-    public class CitasController : ControllerBase
+    public class EstadoCitasController : ControllerBase
     {
-        private readonly ICitaService _citaService;
+        private readonly IEstadoCitaService _estadoCitaService;
 
-        public CitasController(ICitaService citaService)
+        public EstadoCitasController(IEstadoCitaService estadoCitaService)
         {
-            _citaService = citaService;
+            _estadoCitaService = estadoCitaService;
         }
 
         /// <summary>
-        /// Obtiene todos los citas.
+        /// Obtiene todos los estadoCitas.
         /// </summary>
         [HttpGet]
         public async Task<IActionResult> FindAll()
         {
-            var result = await _citaService.FindAllAsync();
+            var result = await _estadoCitaService.FindAllAsync();
             return Ok(result);
         }
 
         /// <summary>
-        /// Obtiene un cita por su id.
+        /// Obtiene un estadoCita por su id.
         /// </summary>
         [HttpGet("{id:int}")]
         public async Task<IActionResult> FindById(int id)
         {
-            var result = await _citaService.FindByIdAsync(id);
+            var result = await _estadoCitaService.FindByIdAsync(id);
 
             if (result == null)
-                return NotFound(new { message = "Cita no encontrado." });
+                return NotFound(new { message = "EstadoCita no encontrado." });
 
             return Ok(result);
         }
 
         /// <summary>
-        /// Crea un cita nuevo.
+        /// Crea un estadoCita nuevo.
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CitaSaveDto dto)
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> Create([FromBody] EstadoCitaSaveDto dto)
         {
-            var result = await _citaService.CreateAsync(dto);
+            var result = await _estadoCitaService.CreateAsync(dto);
 
             if (!result.Success)
                 return BadRequest(result);
@@ -58,12 +59,13 @@ namespace VetCare.Controllers
         }
 
         /// <summary>
-        /// Edita un cita existente.
+        /// Edita un estadoCita existente.
         /// </summary>
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Edit(int id, [FromBody] CitaSaveDto dto)
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> Edit(int id, [FromBody] EstadoCitaSaveDto dto)
         {
-            var result = await _citaService.EditAsync(id, dto);
+            var result = await _estadoCitaService.EditAsync(id, dto);
 
             if (!result.Success)
                 return BadRequest(result);
@@ -75,14 +77,14 @@ namespace VetCare.Controllers
         //[HttpGet("activos")]
         //public async Task<IActionResult> GetActivos()
         //{
-        //    var result = await _citaService.GetActivosAsync();
+        //    var result = await _estadoCitaService.GetActivosAsync();
         //    return Ok(result);
         //}
 
         //[HttpDelete("{id:int}")]
         //public async Task<IActionResult> ChangeStatus(int id)
         //{
-        //    var result = await _citaService.ChangeStatusAsync(id);
+        //    var result = await _estadoCitaService.ChangeStatusAsync(id);
 
         //    if (!result.Success)
         //        return BadRequest(result);
@@ -91,9 +93,9 @@ namespace VetCare.Controllers
         //}
 
         [HttpGet("BusquedaPaginado")]
-        public async Task<Results<BadRequest, Ok<PaginadoResponse<CitaResponseDto>>>> BusquedaPaginado([FromQuery] PaginationRequest dto)
+        public async Task<Results<BadRequest, Ok<PaginadoResponse<EstadoCitaResponseDto>>>> BusquedaPaginado([FromQuery] PaginationRequest dto)
         {
-            var response = await _citaService.BusquedaPaginado(dto);
+            var response = await _estadoCitaService.BusquedaPaginado(dto);
 
             if (response != null)
             {

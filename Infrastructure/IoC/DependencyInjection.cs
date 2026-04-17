@@ -2,12 +2,24 @@
 using Application.Citas.Services;
 using Application.Clientes.Interfaces;
 using Application.Clientes.Services;
+using Application.EstadoCitas.Interfaces;
+using Application.EstadoCitas.Services;
+using Application.HistorialClinico.Interfaces;
+using Application.HistorialClinico.Services;
 using Application.Mascotas.Interfaces;
 using Application.Mascotas.Services;
+using Application.Roles.Interfaces;
+using Application.Roles.Services;
+using Application.Usuarios.Interfaces;
+using Application.Usuarios.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Citas.Repositories;
 using Infrastructure.Data.Clientes.Repositories;
+using Infrastructure.Data.EstadoCitas.Repositories;
+using Infrastructure.Data.HistorialClinico.Repositories;
 using Infrastructure.Data.Mascotas.Repositories;
+using Infrastructure.Data.Roles.Repositories;
+using Infrastructure.Data.Usuarios.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +63,10 @@ namespace Infrastructure.IoC
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IMascotaRepository, MascotaRepository>();
             services.AddScoped<ICitaRepository, CitaRepository>();
+            services.AddScoped<IEstadoCitaRepository, EstadoCitaRepository>();
+            services.AddScoped<IRolRepository, RolRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IHistorialClinicoRepository, HistorialClinicoRepository>();
 
             // =========================
             // 🔹 REGISTRO DE SERVICIOS
@@ -59,6 +75,10 @@ namespace Infrastructure.IoC
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IMascotaService, MascotaService>();
             services.AddScoped<ICitaService, CitaService>();
+            services.AddScoped<IEstadoCitaService, EstadoCitaService>();
+            services.AddScoped<IRolService, RolService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IHistorialClinicoService, HistorialClinicoService>();
 
             // Aquí luego irán:
             // services.AddScoped<IUsuarioRepository, UsuarioRepository>();

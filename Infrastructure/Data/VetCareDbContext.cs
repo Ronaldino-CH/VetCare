@@ -19,6 +19,10 @@ namespace Infrastructure.Data
         public DbSet<Cliente> Clientes => Set<Cliente>();
         public DbSet<Mascota> Mascotas => Set<Mascota>();
         public DbSet<Cita> Citas => Set<Cita>();
+        public DbSet<EstadoCita> EstadoCitas => Set<EstadoCita>();
+        public DbSet<Rol> Roles => Set<Rol>();
+        public DbSet<Usuario> Usuarios => Set<Usuario>();
+        public DbSet<Domain.Entities.HistorialClinico> HistorialClinico => Set<Domain.Entities.HistorialClinico>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

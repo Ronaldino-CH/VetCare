@@ -9,6 +9,7 @@ namespace VetCare.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "1,2,3")]
     public class ClientesController : ControllerBase
     {
         private readonly IClienteService _clienteService;
@@ -46,6 +47,7 @@ namespace VetCare.Controllers
         /// Crea un cliente nuevo.
         /// </summary>
         [HttpPost]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> Create([FromBody] ClienteSaveDto dto)
         {
             var result = await _clienteService.CreateAsync(dto);
@@ -79,6 +81,7 @@ namespace VetCare.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> ChangeStatus(int id)
         {
             var result = await _clienteService.ChangeStatusAsync(id);
@@ -90,7 +93,6 @@ namespace VetCare.Controllers
         }
 
         [HttpGet("BusquedaPaginado")]
-        [AllowAnonymous]
         public async Task<Results<BadRequest, Ok<PaginadoResponse<ClienteResponseDto>>>> BusquedaPaginado([FromQuery] PaginationRequest dto)
         {
             var response = await _clienteService.BusquedaPaginado(dto);

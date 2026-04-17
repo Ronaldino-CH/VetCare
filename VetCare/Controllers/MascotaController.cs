@@ -9,6 +9,7 @@ namespace VetCare.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "1,2,3")]
     public class MascotasController : ControllerBase
     {
         private readonly IMascotaService _mascotaService;
@@ -46,6 +47,7 @@ namespace VetCare.Controllers
         /// Crea un mascota nuevo.
         /// </summary>
         [HttpPost]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> Create([FromBody] MascotaSaveDto dto)
         {
             var result = await _mascotaService.CreateAsync(dto);
@@ -79,6 +81,7 @@ namespace VetCare.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "1,3")]
         public async Task<IActionResult> ChangeStatus(int id)
         {
             var result = await _mascotaService.ChangeStatusAsync(id);
@@ -90,7 +93,6 @@ namespace VetCare.Controllers
         }
 
         [HttpGet("BusquedaPaginado")]
-        [AllowAnonymous]
         public async Task<Results<BadRequest, Ok<PaginadoResponse<MascotaResponseDto>>>> BusquedaPaginado([FromQuery] PaginationRequest dto)
         {
             var response = await _mascotaService.BusquedaPaginado(dto);

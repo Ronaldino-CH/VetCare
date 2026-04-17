@@ -113,7 +113,9 @@ namespace Infrastructure.Data.Citas.Repositories
 
         public async Task<PaginadoResponse<Cita>> BusquedaPaginado(PaginationRequest dto)
         {
-            var contex = _context.Set<Cita>().AsQueryable();
+            var contex = _context.Set<Cita>()
+                .Include(c => c.Mascota)
+                .AsQueryable();
             if (!string.IsNullOrWhiteSpace(dto.Sort))
             {
                 var ColumnsOrder = dto.Sort.Split(".");
@@ -135,17 +137,28 @@ namespace Infrastructure.Data.Citas.Repositories
             {
                 foreach (var filter in dto.Filters)
                 {
-                    var id_value = filter.Split(":");
+                    var idValue = filter.Split(":", 2);
+                    if (idValue.Length != 2) continue;
 
-                    var id = id_value[0];
-                    var value = id_value[1];
+                    var id = idValue[0];
+                    var value = idValue[1];
 
-                    if (id == "estadoCita")
+                    if (id == "idMascota" && int.TryParse(value, out var idMascota))
                     {
-                        //if (value == "activo") contex = contex.Where(p => p.EstadoCita == true);
-                        //if (value == "inactivo") contex = contex.Where(p => p.EstadoCita == false);
+                        contex = contex.Where(p => p.IdMascota == idMascota);
                     }
-                    else if (id == "motivo") contex = contex.Where(p => p.Motivo.Contains(value));
+                    else if (id == "mascota")
+                    {
+                        contex = contex.Where(p => p.Mascota != null && p.Mascota.Nombre.Contains(value));
+                    }
+                    else if (id == "idEstadoCita" && int.TryParse(value, out var idEstadoCita))
+                    {
+                        contex = contex.Where(p => p.IdEstadoCita == idEstadoCita);
+                    }
+                    else if (id == "motivo")
+                    {
+                        contex = contex.Where(p => p.Motivo.Contains(value));
+                    }
                 }
             }
 
