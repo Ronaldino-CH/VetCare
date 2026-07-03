@@ -13,5 +13,6 @@ namespace Domain.Entities
         public DateTime? FechaEdita { get; set; }
 
         public Rol Rol { get; set; } = null!;
+        public ICollection<ChatMensaje> ChatMensajes { get; set; } = new List<ChatMensaje>();
     }
 }

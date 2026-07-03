@@ -23,6 +23,7 @@ namespace Infrastructure.Data
         public DbSet<Rol> Roles => Set<Rol>();
         public DbSet<Usuario> Usuarios => Set<Usuario>();
         public DbSet<Domain.Entities.HistorialClinico> HistorialClinico => Set<Domain.Entities.HistorialClinico>();
+        public DbSet<ChatMensaje> ChatMensajes => Set<ChatMensaje>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

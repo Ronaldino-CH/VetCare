@@ -1,5 +1,7 @@
 ﻿using Application.Citas.Interfaces;
 using Application.Citas.Services;
+using Application.ChatGeneral.Interfaces;
+using Application.ChatGeneral.Services;
 using Application.Clientes.Interfaces;
 using Application.Clientes.Services;
 using Application.EstadoCitas.Interfaces;
@@ -14,6 +16,7 @@ using Application.Usuarios.Interfaces;
 using Application.Usuarios.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Citas.Repositories;
+using Infrastructure.Data.ChatMensajes.Repositories;
 using Infrastructure.Data.Clientes.Repositories;
 using Infrastructure.Data.EstadoCitas.Repositories;
 using Infrastructure.Data.HistorialClinico.Repositories;
@@ -67,6 +70,7 @@ namespace Infrastructure.IoC
             services.AddScoped<IRolRepository, RolRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IHistorialClinicoRepository, HistorialClinicoRepository>();
+            services.AddScoped<IChatMensajeRepository, ChatMensajeRepository>();
 
             // =========================
             // 🔹 REGISTRO DE SERVICIOS
@@ -79,6 +83,7 @@ namespace Infrastructure.IoC
             services.AddScoped<IRolService, RolService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IHistorialClinicoService, HistorialClinicoService>();
+            services.AddScoped<IChatGeneralService, ChatGeneralService>();
 
             // Aquí luego irán:
             // services.AddScoped<IUsuarioRepository, UsuarioRepository>();
